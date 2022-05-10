@@ -1,0 +1,185 @@
+@font-face {
+    font-display: fallback;
+    font-family: 'GenShinGothic P Heavy';
+    src: url('../fonts/GenShinGothic-P-Heavy.ttf') format('truetype');
+}
+
+div {
+    display: flex;
+    color: #ffffff;
+    font-family: 'GenShinGothic P Heavy', sans-serif;
+    text-shadow: #00000080 0 0 0.1em, #00000080 0 0 0.2em, #00000080 0 0 0.3em,
+        #00000080 0 0 0.4em, #00000080 0 0 0.5em;
+}
+
+.fill {
+    height: 100%;
+    width: 100%;
+}
+
+.main {
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+    width: 100vw;
+}
+
+.container {
+    justify-content: center;
+}
+
+.header {
+    justify-content: center;
+    position: absolute;
+}
+
+.footer {
+    bottom: 0;
+    position: absolute;
+}
+
+.border {
+    position: relative;
+}
+
+.inner-border-left {
+    height: calc(100% - 0.3vmin);
+    left: 0.15vmin;
+    position: absolute;
+    width: calc(100% - (0.3vmin * 2));
+}
+
+.inner-border {
+    height: calc(100% - 0.3vmin);
+    left: 0.3vmin;
+    position: absolute;
+    width: calc(100% - (0.3vmin * 2));
+}
+
+.inner-border-right {
+    height: calc(100% - 0.3vmin);
+    left: 0.45vmin;
+    position: absolute;
+    width: calc(100% - (0.3vmin * 2));
+}
+
+.body {
+    height: calc(100% - 0.2vmin);
+    left: 0.2vmin;
+    position: absolute;
+    text-align: center;
+    width: calc(100% - (0.2vmin * 2));
+}
+
+.text {
+    justify-content: center;
+}
+
+.event {
+    height: 3.5vmin;
+    position: absolute;
+    width: 30vmin;
+}
+
+.event-shape {
+    clip-path: polygon(0 0, 100% 0, calc(100% - 2vmin) 100%, 2vmin 100%);
+}
+
+.event-text {
+    font-size: 2vmin;
+}
+
+.score {
+    height: 5vmin;
+    position: absolute;
+    width: 10vmin;
+}
+
+.score-left {
+    margin-left: -35vmin;
+}
+
+.score-shape-left {
+    clip-path: polygon(0 0, calc(100% - 3vmin) 0, 100% 100%, 3vmin 100%);
+}
+
+.score-right {
+    margin-right: -35vmin;
+}
+
+.score-shape-right {
+    clip-path: polygon(3vmin 0, 100% 0, calc(100% - 3vmin) 100%, 0 100%);
+}
+
+.score-text {
+    font-size: 3vmin;
+}
+
+.name {
+    height: 7vmin;
+    position: absolute;
+    width: 40vmin;
+}
+
+.name-left {
+    margin-left: -78vmin;
+    justify-content: flex-end;
+}
+
+.name-shape-left {
+    clip-path: polygon(0 0, calc(100% - 4vmin) 0, 100% 100%, 4vmin 100%);
+}
+
+.name-right {
+    margin-right: -78vmin;
+    justify-content: flex-start;
+}
+
+.name-shape-right {
+    clip-path: polygon(4vmin 0, 100% 0, calc(100% - 4vmin) 100%, 0 100%);
+}
+
+.name-text {
+    padding: 0 4vmin;
+    font-size: 4vmin;
+}
+
+.background-black {
+    background-color: #000000;
+}
+
+.background-black-gradation {
+    background: linear-gradient(90deg, #212121, #616161, #616161, #212121);
+}
+
+.background-white {
+    background-color: #ffffff;
+}
+
+.player1-color {
+    background-color: #212121;
+}
+
+.player1-gradation {
+    background: linear-gradient(90deg, #212121, #b71c1c);
+}
+
+.player2-color {
+    background-color: #212121;
+}
+
+.player2-gradation {
+    background: linear-gradient(90deg, #0d47a1, #212121);
+}
+
+.score-color {
+    background-color: #212121;
+}
+
+.score-left-gradation {
+    background: linear-gradient(90deg, #e65100, #ffb74d);
+}
+
+.score-right-gradation {
+    background: linear-gradient(90deg, #ffb74d, #e65100);
+}
