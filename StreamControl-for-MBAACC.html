@@ -10,7 +10,7 @@
 
     <body class="main">
         <div class="container fill">
-            <div class="header fill">
+            <div id="header" class="header fill">
                 <div class="header-background">
                     <img
                         class="event-background"
@@ -40,11 +40,15 @@
                 </div>
 
                 <div class="header-text">
-                    <div id="player1-name" class="player-text text"></div>
-                    <div id="player1-score" class="score-text text"></div>
                     <div id="event" class="event-text text"></div>
-                    <div id="player2-score" class="score-text text"></div>
-                    <div id="player2-name" class="player-text text"></div>
+                    <div class="score-outer-text">
+                        <div id="player1-score" class="score-text text"></div>
+                        <div id="player2-score" class="score-text text"></div>
+                    </div>
+                    <div class="player-outer-text">
+                        <div id="player1-name" class="player-text text"></div>
+                        <div id="player2-name" class="player-text text"></div>
+                    </div>
                 </div>
             </div>
         </div>

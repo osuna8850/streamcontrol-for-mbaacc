@@ -1,10 +1,15 @@
 {
-    "event": "段位戦",
-    "playerId1": "osuna",
-    "playerId2": "rakuchan",
-    "playerNameMain1": "おすな",
-    "playerNameMain2": "らくちゃん",
-    "playerNameSub1": "Osuna",
-    "playerNameSub2": "Rakuchan",
-    "timestamp": "1652319191"
+    "matchEvent": "紅白戦",
+    "matchPlayer1Id": "osuna",
+    "matchPlayer1NameMain": "おすな",
+    "matchPlayer1NameSub": "Osuna",
+    "matchPlayer1Score": "5",
+    "matchPlayer2Id": "rakuchan",
+    "matchPlayer2NameMain": "らくちゃん",
+    "matchPlayer2NameSub": "Rakuchan",
+    "matchPlayer2Score": "4",
+    "optionsDurationFade": "1000",
+    "optionsDurationMainLanguage": "10000",
+    "optionsDurationSubLanguage": "5000",
+    "timestamp": "1652355698"
 }

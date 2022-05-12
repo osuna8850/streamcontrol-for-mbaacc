@@ -12,10 +12,6 @@ div {
         #00000080 0 0 0.4em, #00000080 0 0 0.5em;
 }
 
-img {
-    position: absolute;
-}
-
 .fill {
     height: 100%;
     width: 100%;
@@ -49,35 +45,59 @@ img {
     justify-content: center;
 }
 
+.left {
+    justify-content: flex-start;
+}
+
+.right {
+    justify-content: flex-end;
+}
+
 .event-background {
     height: calc(18vmin / 480 * 100);
+    position: absolute;
     width: calc(128vmin / 480 * 100);
 }
 
 .score-background {
     height: calc(26vmin / 480 * 100);
+    position: absolute;
     width: calc(204vmin / 480 * 100);
 }
 
 .player-background {
     height: calc(34vmin / 480 * 100);
+    position: absolute;
     width: calc(560vmin / 480 * 100);
 }
 
 .event-text {
     font-size: calc(10vmin / 480 * 100);
     height: calc(16vmin / 480 * 100);
-    width: calc(120vmin / 480 * 100);
+    position: absolute;
+    width: calc(124vmin / 480 * 100);
+}
+
+.score-outer-text {
+    justify-content: space-between;
+    position: absolute;
+    width: calc(200vmin / 480 * 100);
 }
 
 .score-text {
     font-size: calc(16vmin / 480 * 100);
     height: calc(24vmin / 480 * 100);
-    width: calc(32vmin / 480 * 100);
+    width: calc(44vmin / 480 * 100);
+}
+
+.player-outer-text {
+    justify-content: space-between;
+    position: absolute;
+    width: calc(556vmin / 480 * 100);
 }
 
 .player-text {
     font-size: calc(20vmin / 480 * 100);
     height: calc(32vmin / 480 * 100);
-    width: calc(176vmin / 480 * 100);
+    width: calc(188vmin / 480 * 100);
 }
