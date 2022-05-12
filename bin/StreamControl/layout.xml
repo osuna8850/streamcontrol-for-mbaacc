@@ -1,0 +1,26 @@
+<!DOCTYPE StreamControlLayout>
+<layout width="500" height="240" tabbed="1">
+    <tab name="Match Info">
+        <label x="140" y="15" width="60" height="13">Event</label>
+        <lineEdit id="event" x="180" y="10" width="131" height="20">Event</lineEdit>
+
+        <label x="10" y="45" width="201" height="13">Player 1 ――――――――――――――――――――――――――――――</label>
+        <label x="10" y="75" width="60" height="13">ID</label>
+        <lineEdit id="playerId1" x="80" y="70" width="131" height="13" dataSet="players.csv" dataField="1">Player 1 ID</lineEdit>
+        <label x="10" y="105" width="60" height="13">Name</label>
+        <lineEdit id="playerNameMain1" x="80" y="100" width="131" height="20" dataSet="players.csv" dataField="2" master="playerId1">Player 1 Name</lineEdit>
+        <label x="10" y="135" width="60" height="13">Name (Sub)</label>
+        <lineEdit id="playerNameSub1" x="80" y="130" width="131" height="20" dataSet="players.csv" dataField="3" master="playerId1">Player 1 Name (Sub)</lineEdit>
+
+        <button type="swap" x="220" y="70" width="50" height="23" tooltip="Swap the Players" id="swap" swapSet1="playerId1,playerNameMain1,playerNameSub1" swapSet2="playerId2,playerNameMain2,playerNameSub2">Swap</button>
+        <button type="reset" x="220" y="100" width="50" height="23" tooltip="Clear the Players" id="reset" reset="playerId1,playerNameMain1,playerNameSub1,player2,playerNameMain2,playerNameSub2">Clear</button>
+
+        <label x="280" y="45" width="201" height="13">Player 2 ――――――――――――――――――――――――――――――</label>
+        <label x="280" y="75" width="60" height="13">ID</label>
+        <lineEdit id="playerId2" x="350" y="70" width="131" height="13" dataSet="players.csv" dataField="1">Player 2 ID</lineEdit>
+        <label x="280" y="105" width="60" height="13">Name</label>
+        <lineEdit id="playerNameMain2" x="350" y="100" width="131" height="20" dataSet="players.csv" dataField="2" master="playerId2">Player 2 Name</lineEdit>
+        <lineEdit id="playerNameSub2" x="350" y="130" width="131" height="20" dataSet="players.csv" dataField="3" master="playerId2">Player 2 Name (Sub)</lineEdit>
+        <label x="280" y="135" width="60" height="13">Name (Sub)</label>
+    </tab>
+</layout>
