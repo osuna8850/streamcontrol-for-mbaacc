@@ -7,14 +7,7 @@ import './lib/jquery-ui/jquery-ui.min.js';
  */
 class App {
     /**
-     * 中止コントローラー。
-     * @member {AbortController}
-     */
-    abortController;
-
-    /**
      * メインビューモデル。
-     * @member {MainViewModel}
      */
     #mainViewModel;
 
@@ -28,41 +21,61 @@ class App {
      */
     constructor() {
         this.#mainViewModel = new MainViewModel();
-        this.abortController = new AbortController();
     }
 
     /**
      * アプリケーションを実行します。
      */
     run() {
-        $(async () => {
+        $(() => {
             $.fn.extend(Extensions.jQuery);
 
-            this.#mainViewModel.initialize();
+            this.#onInitialize();
 
-            await Task.interval(configuration.updateInterval, () => {
+            Task.interval(configuration.updateInterval, () => {
                 this.#onUpdate(this);
             });
         });
     }
 
     /**
-     * アプリケーションの更新時の処理を実行します。
-     * @param {App} self アプリケーション。
+     * StreamControl JSON データを取得します。
+     * @returns {Object} StreamControl JSON データ。
      */
-    async #onUpdate(self) {
+    #getStreamControlData() {
         const url = `${configuration.streamControlDataUrl}?v=${Date.now()}`;
-        const data = await $.getJSON(url);
+        return $.getJSON(url);
+    }
+
+    /**
+     * アプリケーションの初期化時の処理を実行します。
+     * @param {App} sender アプリケーション。
+     */
+    async #onInitialize() {
+        const data = await this.#getStreamControlData();
+
+        this.#mainViewModel.initialize(data);
+
+        // StreamControl JSON データをバックアップします。
+        this.#data = data;
+    }
+
+    /**
+     * アプリケーションの更新時の処理を実行します。
+     * @param {App} sender アプリケーション。
+     */
+    async #onUpdate(sender) {
+        const data = await this.#getStreamControlData();
 
         // タイムスタンプに変更がない場合は処理しません。
-        if (self.#data?.timestamp === data.timestamp) {
+        if (sender.#data?.timestamp === data.timestamp) {
             return;
         }
 
-        self.#mainViewModel.update(data);
+        sender.#mainViewModel.update(data);
 
         // StreamControl JSON データをバックアップします。
-        self.#data = data;
+        sender.#data = data;
     }
 }
 
@@ -71,18 +84,29 @@ class App {
  */
 class MainViewModel {
     /**
-     * 画面を初期化します。
+     * 時間オプション。
      */
-    async initialize() {
-        // 起動時の表示アニメーションを設定します。
-        $('#header').effect(
-            'slide',
-            { direction: 'up' },
-            configuration.durations.fade
-        );
+    #durations = configuration.durations;
 
-        // アニメーションが終了するまで待ちます。
-        await Task.delay(configuration.durations.fade);
+    /**
+     * 画面を初期化します。
+     * @param {Object} data
+     */
+    async initialize(data) {
+        // 起動時の表示アニメーションを実行します。
+        await $('#header')
+            .effect('slide', { direction: 'up' }, this.#durations.fade)
+            .promise();
+
+        this.#setDurations(data);
+
+        // クロスフェードのアニメーションを登録します。
+        $('#player1-name-main').crossFadeWithRotation(this.#durations, true);
+        $('#player1-name-sub').crossFadeWithRotation(this.#durations, false);
+        $('#player2-name-main').crossFadeWithRotation(this.#durations, true);
+        $('#player2-name-sub').crossFadeWithRotation(this.#durations, false);
+
+        this.update(data);
     }
 
     /**
@@ -90,125 +114,140 @@ class MainViewModel {
      * @param {Object} data
      */
     update(data) {
-        app.abortController.abort();
-        app.abortController = new AbortController();
+        this.#setDurations(data);
 
         // Event
-        $('#event').textWithFade(data.matchEvent, data.optionsDurationFade);
+        $('#event').textWithFade(data.matchEvent, this.#durations.fade);
 
         // Player 1
-        $('#player1-name').textWithRotation(
+        $('#player1-name-main').textWithFade(
             data.matchPlayer1NameMain,
-            data.optionsDurationMainLanguage,
+            this.#durations.fade
+        );
+        $('#player1-name-sub').textWithFade(
             data.matchPlayer1NameSub,
-            data.optionsDurationSubLanguage,
-            data.optionsDurationFade,
-            app.abortController.signal
+            this.#durations.fade,
+            true
         );
         $('#player1-score').textWithFade(
             data.matchPlayer1Score,
-            data.optionsDurationFade
+            this.#durations.fade
         );
 
         // Player 2
-        $('#player2-name').textWithRotation(
+        $('#player2-name-main').textWithFade(
             data.matchPlayer2NameMain,
-            data.optionsDurationMainLanguage,
+            this.#durations.fade
+        );
+        $('#player2-name-sub').textWithFade(
             data.matchPlayer2NameSub,
-            data.optionsDurationSubLanguage,
-            data.optionsDurationFade,
-            app.abortController.signal
+            this.#durations.fade,
+            true
         );
         $('#player2-score').textWithFade(
             data.matchPlayer2Score,
-            data.optionsDurationFade
+            this.#durations.fade
         );
+    }
+
+    /**
+     * StreamControl JSON データの設定値で時間オプションを設定します。
+     * @param {Object} data
+     */
+    #setDurations(data) {
+        const mainLanguage =
+            parseInt(data.optionsDurationMainLanguage) ??
+            configuration.durations.mainLanguage;
+        const subLanguage =
+            parseInt(data.optionsDurationSubLanguage) ??
+            configuration.durations.subLanguage;
+        const fade =
+            parseInt(data.optionsDurationFade) ?? configuration.durations.fade;
+
+        this.#durations.mainLanguage = mainLanguage;
+        this.#durations.subLanguage = subLanguage;
+        this.#durations.fade = fade;
     }
 }
 
+/**
+ * 拡張メソッドを定義します。
+ */
 class Extensions {
+    /**
+     * jQuery の拡張メソッドオブジェクト。
+     */
     static jQuery = {
         /**
-         * テキストを設定し、クロスフェードのアニメーションを行います。
+         * テキストを設定し、フェードのアニメーションを行います。
          * @param {string} text テキスト。
          * @param {number} duration フェード時間。
-         * @param {AbortSignal} abortSignal 中止シグナル。
+         * @param {boolean} isFadeOutOnly フェードアウトのみかどうか。
          */
-        textWithFade: async function (text, duration, abortSignal) {
-            // テキストが同一の場合は何もしません。
+        textWithFade: async function (text, duration, isFadeOutOnly) {
+            // テキストが同一の場合、何もしません。
             if (this.text() === text) {
                 return;
             }
 
-            duration ??= configuration.durations.fade;
+            // テキストが非表示の場合、テキストだけを設定して終了します。
+            if (this.css('opacity') === '0') {
+                this.text(text);
+                return;
+            }
+
+            duration ??= 1000;
+            const halfDuration = parseInt(duration) / 2;
+
+            isFadeOutOnly ??= false;
+
+            // キューのアニメーションを停止します。
+            this.stop(true, true);
 
             // フェードアウトします。
-            this.fadeOut(duration);
-            try {
-                await Task.delay(duration, abortSignal);
-            } catch (e) {
-                if (e.name === 'AbortError') {
-                    // 処理を終了します。
-                    return;
-                } else {
-                    // エラーを再スローします。
-                    throw e;
-                }
-            }
+            await this.animate({ opacity: 0 }, halfDuration).promise();
 
             // テキストを変更します。
             this.text(text);
 
-            // フェードインします。
-            this.fadeIn(duration);
+            // フェードアウトのみではない場合、フェードインします。
+            if (!isFadeOutOnly) {
+                await this.animate({ opacity: 1 }, halfDuration).promise();
+            }
         },
 
         /**
-         * テキストを設定し、クロスフェードでローテーションします。
-         * @param {string} mainText テキスト。
-         * @param {number} mainDuration テキストの表示時間。
-         * @param {string} subText サブテキスト。
-         * @param {number} subDuration サブテキストの表示時間。
-         * @param {number} fadeDuration フェード時間。
-         * @param {AbortSignal} abortSignal 中止シグナル。
+         * クロスフェードでローテーションします。
+         * @param {Object} durations 時間オプション。
+         * @param {boolean} isFirstFadeIn 初回がフェードインかどうか。
          */
-        textWithRotation: async function (
-            mainText,
-            mainDuration,
-            subText,
-            subDuration,
-            fadeDuration,
-            abortSignal
-        ) {
-            subText ??= mainText;
-            mainDuration ??= configuration.durations.mainLanguage;
-            subDuration ??= configuration.durations.subLanguage;
-            fadeDuration ??= configuration.durations.fade;
+        crossFadeWithRotation: function (durations, isFirstFadeIn) {
+            Task.run(async () => {
+                while (true) {
+                    this.crossFade(durations, isFirstFadeIn);
 
-            try {
-                this.textWithFade(mainText, fadeDuration, abortSignal);
-                await Task.delay(mainDuration, abortSignal);
-
-                this.textWithFade(subText, fadeDuration, abortSignal);
-                await Task.delay(subDuration, abortSignal);
-
-                this.textWithRotation(
-                    mainText,
-                    mainDuration,
-                    subText,
-                    subDuration,
-                    fadeDuration,
-                    abortSignal
-                );
-            } catch (e) {
-                if (e.name === 'AbortError') {
-                    // 処理を終了します。
-                    return;
-                } else {
-                    // エラーを再スローします。
-                    throw e;
+                    const duration =
+                        durations.mainLanguage +
+                        durations.subLanguage +
+                        durations.fade * 2;
+                    await Task.delay(duration);
                 }
-            }
+            });
+        },
+
+        /**
+         * クロスフェードします。
+         * @param {Object} durations 時間オプション。
+         * @property {boolean} isFirstIn 初回がフェードインかどうか。
+         */
+        crossFade: async function (durations, isFirstFadeIn) {
+            const first = isFirstFadeIn ? 1 : 0;
+            const second = isFirstFadeIn ? 0 : 1;
+
+            this.animate({ opacity: first }, durations?.fade);
+            await Task.delay(durations?.fade + durations?.mainLanguage);
+            this.animate({ opacity: second }, durations?.fade);
+            await Task.delay(durations?.fade + durations?.subLanguage);
         },
     };
 }
@@ -218,24 +257,25 @@ class Extensions {
  */
 class Task {
     /**
+     * 新しいタスクで関数を実行します。
+     * @param {Function} action 関数。
+     */
+    static run(action) {
+        return new Promise(resolve => {
+            action();
+            resolve();
+        });
+    }
+
+    /**
      * 指定の時間だけスリーブします。
      * @param {number} milliseconds ミリ秒。
-     * @param {AbortSignal} abortSignal 中止シグナル。
-     * @throws {DOMException} 中止エラー。
      */
-    static delay(milliseconds, abortSignal) {
+    static delay(milliseconds) {
         return new Promise((resolve, reject) => {
-            const onTimeout = setTimeout(() => {
+            setTimeout(() => {
                 resolve();
-                abortSignal?.removeEventListener('abort', onAbort);
             }, milliseconds);
-
-            const onAbort = () => {
-                clearTimeout(onTimeout);
-                reject(new DOMException('Aborted.', 'AbortError'));
-            };
-
-            abortSignal?.addEventListener('abort', onAbort);
         });
     }
 
@@ -243,23 +283,13 @@ class Task {
      * 指定の時間の間隔で関数を実行します。
      * @param {number} milliseconds ミリ秒。
      * @param {Function} action 関数。
-     * @param {AbortSignal} abortSignal 中止シグナル。
-     * @throws {DOMException} 中止エラー。
      */
     static interval(milliseconds, action, abortSignal) {
         return new Promise((resolve, reject) => {
-            const onInterval = setInterval(() => {
+            setInterval(() => {
                 action();
                 resolve();
-                abortSignal?.removeEventListener('abort', onAbort);
             }, milliseconds);
-
-            const onAbort = () => {
-                clearInterval(onInterval);
-                reject(new DOMException('Aborted.', 'AbortError'));
-            };
-
-            abortSignal?.addEventListener('abort', onAbort);
         });
     }
 }

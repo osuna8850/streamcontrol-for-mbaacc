@@ -78,8 +78,14 @@ div {
     width: calc(124vmin / 480 * 100);
 }
 
-.score-outer-text {
-    justify-content: space-between;
+.player1-score-outer-text {
+    justify-content: flex-start;
+    position: absolute;
+    width: calc(200vmin / 480 * 100);
+}
+
+.player2-score-outer-text {
+    justify-content: flex-end;
     position: absolute;
     width: calc(200vmin / 480 * 100);
 }
@@ -90,14 +96,25 @@ div {
     width: calc(44vmin / 480 * 100);
 }
 
-.player-outer-text {
-    justify-content: space-between;
+.player1-name-outer-text {
+    justify-content: flex-start;
     position: absolute;
     width: calc(556vmin / 480 * 100);
 }
 
-.player-text {
+.player2-name-outer-text {
+    justify-content: flex-end;
+    position: absolute;
+    width: calc(556vmin / 480 * 100);
+}
+
+.name-sub {
+    opacity: 0;
+}
+
+.name-text {
     font-size: calc(20vmin / 480 * 100);
     height: calc(32vmin / 480 * 100);
+    position: absolute;
     width: calc(188vmin / 480 * 100);
 }

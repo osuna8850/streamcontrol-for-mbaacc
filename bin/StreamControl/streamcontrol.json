@@ -1,15 +1,15 @@
 {
-    "matchEvent": "紅白戦",
+    "matchEvent": "シングル",
     "matchPlayer1Id": "osuna",
     "matchPlayer1NameMain": "おすな",
     "matchPlayer1NameSub": "Osuna",
-    "matchPlayer1Score": "5",
+    "matchPlayer1Score": "3",
     "matchPlayer2Id": "rakuchan",
     "matchPlayer2NameMain": "らくちゃん",
     "matchPlayer2NameSub": "Rakuchan",
-    "matchPlayer2Score": "4",
+    "matchPlayer2Score": "6",
     "optionsDurationFade": "1000",
     "optionsDurationMainLanguage": "10000",
     "optionsDurationSubLanguage": "5000",
-    "timestamp": "1652355698"
+    "timestamp": "1652464276"
 }
