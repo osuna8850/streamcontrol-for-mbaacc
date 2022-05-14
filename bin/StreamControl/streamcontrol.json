@@ -1,15 +1,15 @@
 {
     "matchEvent": "シングル",
-    "matchPlayer1Id": "osuna",
-    "matchPlayer1NameMain": "おすな",
-    "matchPlayer1NameSub": "Osuna",
-    "matchPlayer1Score": "3",
-    "matchPlayer2Id": "rakuchan",
-    "matchPlayer2NameMain": "らくちゃん",
-    "matchPlayer2NameSub": "Rakuchan",
-    "matchPlayer2Score": "6",
+    "matchPlayer1Id": "yume",
+    "matchPlayer1NameMain": "yume",
+    "matchPlayer1NameSub": "yume",
+    "matchPlayer1Score": "0",
+    "matchPlayer2Id": "osuna",
+    "matchPlayer2NameMain": "おすな",
+    "matchPlayer2NameSub": "Osuna",
+    "matchPlayer2Score": "0",
     "optionsDurationFade": "1000",
     "optionsDurationMainLanguage": "10000",
     "optionsDurationSubLanguage": "5000",
-    "timestamp": "1652464276"
+    "timestamp": "1652495450"
 }
