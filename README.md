@@ -6,14 +6,14 @@
 
 ## Requirement
 
--   OBS Studio
+-   OBS Studio (26.1.1 以上を推奨します)
 
 ## Usage
 
 1. OBS Studio に StreamControl-for-MBAACC.html をドラッグ & ドロップします
 2. bin\StreamControl\StreamControl.exe を起動します
 3. 適宜、値を書き換えます
-4. 上書き保存（Ctrl+S）で反映します
+4. 上書き保存 (Ctrl+S) で反映します
 5. OBS Studio の StreamControl-for-MBAACC.html の値が書き換わります
 
 ## Notes

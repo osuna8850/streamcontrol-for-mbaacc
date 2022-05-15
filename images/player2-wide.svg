@@ -2,7 +2,7 @@
 <svg width="560" height="18" viewBox="0 0 560 18"
     xmlns="http://www.w3.org/2000/svg">
     <defs>
-        <polyline id="polyline" points="558,0 550,16 378,16 386,0" stroke-linecap="round" stroke-linejoin="round" />
+        <polyline id="polyline" points="558,0 550,16 340,16 348,0" stroke-linecap="round" stroke-linejoin="round" />
 
         <mask id="mask">
             <use href="#polyline" fill="#ffffff" />

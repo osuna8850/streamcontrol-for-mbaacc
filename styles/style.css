@@ -28,9 +28,15 @@ div {
     justify-content: center;
 }
 
-.header,
+.header {
+    display: none;
+    justify-content: center;
+    position: absolute;
+}
+
 .header-background,
-.header-text {
+.header-text,
+.player-outer-background {
     justify-content: center;
     position: absolute;
 }
@@ -66,7 +72,14 @@ div {
 }
 
 .player-background {
-    height: calc(34vmin / 480 * 100);
+    height: calc(18vmin / 480 * 100);
+    position: absolute;
+    width: calc(560vmin / 480 * 100);
+}
+
+.player-background-wide {
+    display: none;
+    height: calc(18vmin / 480 * 100);
     position: absolute;
     width: calc(560vmin / 480 * 100);
 }
@@ -76,6 +89,12 @@ div {
     height: calc(16vmin / 480 * 100);
     position: absolute;
     width: calc(124vmin / 480 * 100);
+}
+
+.player-outer-text {
+    justify-content: center;
+    position: absolute;
+    width: calc(556vmin / 480 * 100);
 }
 
 .player1-score-outer-text {
@@ -113,8 +132,15 @@ div {
 }
 
 .name-text {
-    font-size: calc(20vmin / 480 * 100);
-    height: calc(32vmin / 480 * 100);
+    font-size: calc(12vmin / 480 * 100);
+    height: calc(16vmin / 480 * 100);
     position: absolute;
     width: calc(188vmin / 480 * 100);
+}
+
+.name-text-wide {
+    font-size: calc(12vmin / 480 * 100);
+    height: calc(16vmin / 480 * 100);
+    position: absolute;
+    width: calc(226vmin / 480 * 100);
 }

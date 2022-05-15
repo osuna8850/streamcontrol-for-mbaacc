@@ -38,6 +38,14 @@
 
     <tab name="Options">
         <tabSet x="10" y="10" width="195" height="140">
+            <tab name="Mode                                    ">
+                <label x="10" y="0" width="170" height="16">――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――</label>
+                <label x="10" y="20" width="110" height="23">Score Visibility</label>
+                <checkBox x="120" y="22" width="80" height="20" id="optionsModeScoreVisibility"></checkBox>
+            </tab>
+        </tabSet>
+
+        <tabSet x="215" y="10" width="195" height="140">
             <tab name="Duration                                ">
                 <label x="10" y="0" width="170" height="16">――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――</label>
                 <label x="10" y="20" width="110" height="23">Fade (ms)</label>
