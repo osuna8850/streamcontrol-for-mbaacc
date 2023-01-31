@@ -46,6 +46,12 @@ div {
     position: absolute;
 }
 
+.footer-background {
+    bottom: 0;
+    justify-content: center;
+    position: absolute;
+}
+
 .text {
     align-items: center;
     justify-content: center;
@@ -143,4 +149,11 @@ div {
     height: calc(16vmin / 480 * 100);
     position: absolute;
     width: calc(226vmin / 480 * 100);
+}
+
+.player1-score-background {
+    top: calc(-16vmin / 480 * 100);
+    height: calc(16vmin / 480 * 100);
+    position: absolute;
+    width: calc(560vmin / 480 * 100);
 }
